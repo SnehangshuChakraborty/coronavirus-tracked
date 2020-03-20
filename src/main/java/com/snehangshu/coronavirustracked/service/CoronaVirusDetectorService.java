@@ -23,6 +23,10 @@ public class CoronaVirusDetectorService {
     public String VIRUS_API_LINK = "https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_19-covid-Confirmed.csv";
     private List<LocationStats> locationStatsList = new ArrayList<>();
 
+    public List<LocationStats> getLocationStatsList() {
+        return locationStatsList;
+    }
+
     @PostConstruct
     @Scheduled(cron = "1 * * * * *")
     public void fetchData() throws IOException, InterruptedException {
@@ -36,7 +40,7 @@ public class CoronaVirusDetectorService {
             LocationStats locationStats = new LocationStats();
             locationStats.setState(record.get("Province/State")); // Province
             locationStats.setCountry(record.get("Country/Region")); //State
-            locationStats.setLatestReport(Integer.parseInt(record.get(record.size()-2))); //LatestReport
+            locationStats.setLatestReport(Integer.parseInt(record.get(record.size()-1))); //LatestReport
             newlocationStatsList.add(locationStats);
             System.out.println(locationStats);
         }

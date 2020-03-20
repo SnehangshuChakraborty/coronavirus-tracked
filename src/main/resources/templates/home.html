@@ -1,1 +1,29 @@
-<h1>Corona Virus Dashboard</h1>
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Novel coVid-19 Situation Dashboard</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+</head>
+
+<body>
+
+<table>
+    <tr>
+        <th>Province/State</th>
+        <th>Country</th>
+        <th>Latest Reported Cases</th>
+    </tr>
+    <tr th:each="locationStat : ${locationStats}">
+        <td th:text="${locationStat.State}"></td>
+        <td th:text="${locationStat.country}"></td>
+        <td th:text="${locationStat.latestReport}">0</td>
+    </tr>
+</table>
+
+
+</body>
+
+</html>
