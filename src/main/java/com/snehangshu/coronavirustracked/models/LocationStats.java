@@ -5,6 +5,8 @@ public class LocationStats {
     private String country;
     private int latestReport;
     private int differenceFromPreviousDay;
+    private int countIndia;
+
 
 
     public int getDifferenceFromPreviousDay() {

@@ -35,6 +35,7 @@ public class CoronaVirusDetectorService {
         HttpRequest request = HttpRequest.newBuilder().uri(URI.create(VIRUS_API_LINK)).build();
         HttpResponse<String> httpResponse =  client.send(request, HttpResponse.BodyHandlers.ofString());
         StringReader stringReader = new StringReader(httpResponse.body());
+
         Iterable<CSVRecord> records = CSVFormat.DEFAULT.withFirstRecordAsHeader().parse(stringReader);
         for (CSVRecord record : records) {
             LocationStats locationStats = new LocationStats();
@@ -44,8 +45,12 @@ public class CoronaVirusDetectorService {
             int previousDayReportedCases = Integer.parseInt(record.get(record.size()-2));
             locationStats.setLatestReport(latestReportedCases);
             locationStats.setDifferenceFromPreviousDay(latestReportedCases-previousDayReportedCases);
+            if(locationStats.getCountry().equalsIgnoreCase("India")){
+                int countInIndia = latestReportedCases;
+                int newCountInIndia = latestReportedCases-previousDayReportedCases;
+            }
+            //String country = locationStats.getCountry()
             newlocationStatsList.add(locationStats);
-            System.out.println(locationStats);
         }
         this.locationStatsList = newlocationStatsList;
     }
